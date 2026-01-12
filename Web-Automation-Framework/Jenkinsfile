@@ -39,13 +39,19 @@ pipeline {
 
         stage('Build') {
             steps {
-                bat 'mvn clean install -f ${CHILD_FOLDER_PATH}/pom.xml' // 🔁 Adjust per git repo
+				dir("${CHILD_FOLDER_PATH}") { // 🔁 Adjust per git repo
+					bat 'mvn clean install -f pom.xml' 
+				}
+                
             }
         }
 
         stage('Test') {
             steps {
-                bat 'mvn test -f ${CHILD_FOLDER_PATH}/pom.xml' // 🔁 Adjust per git repo
+				dir("${CHILD_FOLDER_PATH}") { // 🔁 Adjust per git repo
+					bat 'mvn test -f pom.xml' 
+				}
+                
             }
         }
 		stage('Stop Selenium Grid') {
