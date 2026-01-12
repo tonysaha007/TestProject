@@ -11,8 +11,9 @@ pipeline {
         SELENIUM_GRID = "true"
         GitHub_REPO = "https://github.com/tonysaha007/TestProject.git"
         PROJECT_FOLDER = "Web-Automation-Framework" // ${PROJECT_FOLDER}
+        EMAIL_TO = "tony.ez007@gmail.com"
         
-       	// https://github.com/repo.git
+       	// https://github.com/*********.git
 		//	│
 		//	├── Web-Automation-Framework // ${PROJECT_FOLDER}
 		//	│   ├── pom.xml
@@ -90,7 +91,7 @@ pipeline {
         success {
             echo 'The build was successful!'
 			emailext(
-			    to: 'tony.ez007@gmail.com',
+			    to: "${EMAIL_TO}",
 			    subject: "Build Success: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
 			    body: """
 			    <html>
