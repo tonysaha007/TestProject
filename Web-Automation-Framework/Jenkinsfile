@@ -90,15 +90,21 @@ pipeline {
         
         success {
             echo 'The build was successful!'
-			emailext(
-			    to: "${EMAIL_TO}",
-			    subject: "Build Success: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-			    body: '${FILE, path="${PROJECT_FOLDER}/src/main/resources/Email_Body_On_Successful.html"}', 
-			    
-			    mimeType: 'text/html',
-			    attachLog: true,
-			    attachmentsPattern: "${PROJECT_FOLDER}/logs/app.log" // 🔁 Adjust path as needed
-			)
+            script {
+				
+				def htmlBody = readFile("${PROJECT_FOLDER}/src/main/resources/Email_Body_On_Successful.html")
+				emailext(
+				    to: "${EMAIL_TO}",
+				    subject: "Build Success: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+					body: htmlBody,
+				    
+				    mimeType: 'text/html',
+				    attachLog: true,
+				    attachmentsPattern: "${PROJECT_FOLDER}/logs/app.log" // 🔁 Adjust path as needed
+					)
+			
+			}
+
         }
         
         failure {
