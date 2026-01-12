@@ -65,7 +65,7 @@ pipeline {
         stage('Publish Reports') {
             steps {
                 publishHTML(target: [
-                    reportDir: '${CHILD_FOLDER_PATH}/src/test/resources/ExtentReport',  //🔁 Adjust as per folder
+                    reportDir: "${CHILD_FOLDER_PATH}/src/test/resources/ExtentReport",  //🔁 Adjust as per folder
                     reportFiles: 'ExtentReport.html',  
                     reportName: 'Extent Spark Report'
                 ])
@@ -75,7 +75,7 @@ pipeline {
 
     post {
         always {
-            archiveArtifacts artifacts: '**/${CHILD_FOLDER_PATH}/src/test/resources/ExtentReport/*.html', fingerprint: true
+            archiveArtifacts artifacts: "**/${CHILD_FOLDER_PATH}/src/test/resources/ExtentReport/*.html", fingerprint: true
             junit '${CHILD_FOLDER_PATH}/target/surefire-reports/*.xml'
             echo 'artifacts have been archived and test results published.'
         }
@@ -145,7 +145,7 @@ pipeline {
 			    """,
 			    mimeType: 'text/html',
 			    attachLog: true,
-			    attachmentsPattern: '${CHILD_FOLDER_PATH}/logs/app.log' // 🔁 Adjust path as needed
+			    attachmentsPattern: "${CHILD_FOLDER_PATH}/logs/app.log" // 🔁 Adjust path as needed
 			)
         }
         
