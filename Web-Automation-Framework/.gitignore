@@ -29,11 +29,13 @@ mvnw.cmd
 # =========================
 # Test Execution Outputs
 # =========================
+# Ignore test reports and screenshots
 /test-output/
-/ExtentReport/
-/screenshots/
-/allure-results/
-/reports/
+screenshots/
+allure-results/
+reports/
+ExtentReport/
+#*.html
 
 # Ignore generated Selenium WebDriver files
 chromedriver.log
