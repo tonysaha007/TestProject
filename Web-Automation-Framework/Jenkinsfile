@@ -76,7 +76,7 @@ pipeline {
     post {
         always {
             archiveArtifacts artifacts: "**/${CHILD_FOLDER_PATH}/src/test/resources/ExtentReport/*.html", fingerprint: true
-            junit '${CHILD_FOLDER_PATH}/target/surefire-reports/*.xml'
+            junit "${CHILD_FOLDER_PATH}/target/surefire-reports/*.xml"
             echo 'artifacts have been archived and test results published.'
         }
         
