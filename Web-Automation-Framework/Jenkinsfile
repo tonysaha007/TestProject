@@ -7,8 +7,9 @@ pipeline {
 	}
 
 	environment {
-		COMPOSE_PATH = "${WORKSPACE}/Web-Automation-Framework/docker" // 🔁 Adjust if compose file is elsewhere
+		COMPOSE_PATH = "${WORKSPACE}/${CHILD_FOLDER_PATH}/docker" // 🔁 Adjust if compose file is elsewhere
         SELENIUM_GRID = "true"
+        CHILD_FOLDER_PATH = "Web-Automation-Framework" // ${CHILD_FOLDER_PATH}
 	} 
 	    
     stages {
@@ -38,13 +39,13 @@ pipeline {
 
         stage('Build') {
             steps {
-                bat 'mvn clean install -f Web-Automation-Framework/pom.xml' // 🔁 Adjust per git repo
+                bat 'mvn clean install -f ${CHILD_FOLDER_PATH}/pom.xml' // 🔁 Adjust per git repo
             }
         }
 
         stage('Test') {
             steps {
-                bat 'mvn test -f Web-Automation-Framework/pom.xml' // 🔁 Adjust per git repo
+                bat 'mvn test -f ${CHILD_FOLDER_PATH}/pom.xml' // 🔁 Adjust per git repo
             }
         }
 		stage('Stop Selenium Grid') {
@@ -58,7 +59,7 @@ pipeline {
         stage('Publish Reports') {
             steps {
                 publishHTML(target: [
-                    reportDir: 'Web-Automation-Framework/src/test/resources/ExtentReport',  //🔁 Adjust as per folder
+                    reportDir: '${CHILD_FOLDER_PATH}/src/test/resources/ExtentReport',  //🔁 Adjust as per folder
                     reportFiles: 'ExtentReport.html',  
                     reportName: 'Extent Spark Report'
                 ])
@@ -68,8 +69,8 @@ pipeline {
 
     post {
         always {
-            archiveArtifacts artifacts: '**/Web-Automation-Framework/src/test/resources/ExtentReport/*.html', fingerprint: true
-            junit 'Web-Automation-Framework/target/surefire-reports/*.xml'
+            archiveArtifacts artifacts: '**/${CHILD_FOLDER_PATH}/src/test/resources/ExtentReport/*.html', fingerprint: true
+            junit '${CHILD_FOLDER_PATH}/target/surefire-reports/*.xml'
             echo 'artifacts have been archived and test results published.'
         }
         
@@ -121,7 +122,7 @@ pipeline {
 			
 			                    <p style="margin-top:20px;">
 			                        <b>Extent Report:</b><br/>
-			                        <a href="http://localhost:8080/job/${env.JOB_NAME}/${env.BUILD_NUMBER}/artifact/Web-Automation-Framework/src/test/resources/ExtentReport/ExtentReport.html"> 
+			                        <a href="http://localhost:8080/job/${env.JOB_NAME}/${env.BUILD_NUMBER}/artifact/${CHILD_FOLDER_PATH}/src/test/resources/ExtentReport/ExtentReport.html"> 
 			                            Click here to view report
 			                        </a>
 			                    </p>
@@ -138,7 +139,7 @@ pipeline {
 			    """,
 			    mimeType: 'text/html',
 			    attachLog: true,
-			    attachmentsPattern: 'Web-Automation-Framework/logs/app.log' // 🔁 Adjust path as needed
+			    attachmentsPattern: '${CHILD_FOLDER_PATH}/logs/app.log' // 🔁 Adjust path as needed
 			)
         }
         
