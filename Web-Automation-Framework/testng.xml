@@ -7,7 +7,7 @@
 	</listeners>
 
 	<test name="OrangeHRMTest_firefox">
-		<parameter name="browser" value="firefox" />
+		<parameter name="browser" value="chrome" />
 		<classes>
 
 			<class name="com.orangehrm.test.LoginPageTest" />
