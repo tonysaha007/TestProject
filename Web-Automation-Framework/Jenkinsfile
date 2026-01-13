@@ -12,9 +12,9 @@ pipeline {
         GitHub_REPO = "https://github.com/tonysaha007/TestProject.git"
         PROJECT_FOLDER = "Web-Automation-Framework" // ${PROJECT_FOLDER}
         
-       	// https://github.com/repo.git
+       	// https://github.com/repo.git // ${GitHub_REPO}
 		//	│
-		//	├── Web-Automation-Framework // ${PROJECT_FOLDER}
+		//	├── Project Folder Name // ${PROJECT_FOLDER}
 		//	│   ├── pom.xml
 		//
 	} 
