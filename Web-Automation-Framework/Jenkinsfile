@@ -32,7 +32,7 @@ pipeline {
 						bat 'java -version'
 	                    bat "docker compose -f ${COMPOSE_PATH}\\docker-compose.yml up -d"
 	                    echo "Waiting for Selenium Grid to be ready..."
-	                    sleep 15 // Add a wait if needed
+	                    sleep 10 // Add a wait if needed
 	                    echo "Environment setup complete. COMPOSE_PATH set to ${COMPOSE_PATH}"
 	                }
             	}
